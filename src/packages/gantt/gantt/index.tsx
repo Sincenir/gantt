@@ -3,21 +3,21 @@ import PropTypes from "prop-types";
 
 import GanttHeader from "./widget/GanttHeader";
 import GanttContent from "./widget/GanttContent";
-import { MoveSlider, RowData } from "../root";
+import { IMoveGantt, RowData } from "../root";
 import { getDateList } from "../../util/date";
 
-
 const ganttStyle: CSSProperties = {
-  height: '100%',
-  backgroundColor: 'white',
+  height: "100%",
+  backgroundColor: "white",
   flexGrow: 1,
   display: "flex",
   flexDirection: "column",
-  overflow: 'hidden'
-}
+  overflow: "hidden",
+};
 
 const SiGantt: React.FC<SiGanttProps> = (props) => {
   const {
+    data,
     projectStart,
     projectEnd,
     rowKey,
@@ -43,12 +43,24 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
         ganttColumnWidth={ganttColumnWidth}
         headerHeight={headerHeight}
       ></GanttHeader>
-      <GanttContent></GanttContent>
+      <GanttContent
+        data={data}
+        rowKey={rowKey}
+        projectStart={projectStart}
+        projectEnd={projectEnd}
+        dateList={dateList}
+        ganttColumnWidth={ganttColumnWidth}
+        startDateKey={startDateKey}
+        endDateKey={endDateKey}
+        rowHeight={rowHeight}
+        moveSlider={moveSlider}
+      ></GanttContent>
     </div>
   );
 };
 
 interface SiGanttProps {
+  data: Array<RowData>;
   projectStart: Date;
   projectEnd: Date;
   rowKey: string;
@@ -57,10 +69,11 @@ interface SiGanttProps {
   ganttColumnWidth: number;
   headerHeight: number;
   rowHeight: number;
-  moveSlider: MoveSlider;
+  moveSlider: IMoveGantt;
 }
 
 SiGantt.propTypes = {
+  data: PropTypes.any,
   projectStart: PropTypes.any,
   projectEnd: PropTypes.any,
   rowKey: PropTypes.any,

@@ -105,3 +105,13 @@ export function checkDate(date: any) {
   }
   return date;
 }
+
+/**
+ * 获取两个时间的间隔时间戳
+ * @param {String | Number | Date} startDate 起始日期
+ * @param {String | Number | Date} endDate 截止日期
+ */
+ export function getDateInterval(startDate: string | number | Date, endDate: string | number | Date): number {
+   const tmp = createDate(endDate).getTime() - createDate(startDate).getTime()
+  return Number(tmp)
+}

@@ -20,32 +20,9 @@ const getEnd = (items: Array<any>, k: string) => {
 };
 
 const SiGantt: React.FC<SiGanttProps> = (props) => {
-  // setStyleState
-  // const [styleState, ] = useState({
-  //   headerHeight: props.headerHeight,
-  //   rowHeight: props.rowHeight,
-  //   ganttColumnWidth: props.ganttColumnWidth,
-  //   levelColor: props.levelColor,
-  //   showToday: props.showToday,
-  //   showWeekend: props.showWeekend,
-  // });
-  // // setDataState
-  // const [dataState, ] = useState({
-  //   data: [...props.data],
-  //   startDateKey: props.startDateKey,
-  //   endDateKey: props.endDateKey,
-  //   rowKey: props.rowKey,
-  //   expandAll: props.expandAll,
-  // });
-  // // setEventState
-  // const [eventState, ] = useState({
-  //   moveSlider: props.moveSlider,
-  //   rowClick: props.rowClick,
-  //   rowDBClick: props.rowDBClick,
-  // });
-
   const [projectStart, setProjectStart] = useState<Date>(new Date());
   const [projectEnd, setProjectEnd] = useState<Date>(new Date());
+  const [data, setData] = useState([...props.data])
 
   useEffect(() => {
     const startTime = getStart(props.data, props.startDateKey as string);
@@ -58,6 +35,10 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
     }
   }, [props.data, props.startDateKey, props.endDateKey]);
 
+  const moveGantt = (left: number) => {
+
+  }
+
   // console.log(`${projectStart?.getFullYear()}-${projectStart?.getMonth()}-${projectStart?.getDate()}`);
   // console.log(`${projectEnd?.getFullYear()}-${projectEnd?.getMonth()}-${projectEnd?.getDate()}`);
 
@@ -67,27 +48,29 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
       <SGantt
         projectStart={projectStart}
         projectEnd={projectEnd}
+        data={data}
         rowKey={props.rowKey}
         startDateKey={props.startDateKey as string}
         endDateKey={props.endDateKey as string}
         ganttColumnWidth={Number(props.ganttColumnWidth)}
         headerHeight={Number(props.headerHeight)}
         rowHeight={Number(props.rowHeight)}
-        moveSlider={props.moveSlider as MoveSlider}
+        moveSlider={moveGantt as IMoveGantt}
       ></SGantt>
     </div>
   );
 };
 
 export interface RowData {
-  id?: string;
+  id?: number;
   children?: RowData[];
   startDate?: Date;
   endDate?: Date;
   [k: string]: any;
 }
 
-export type MoveSlider = (oldData: RowData, newData: RowData) => void;
+export type IMoveSlider = (oldData: RowData, newData: RowData) => void;
+export type IMoveGantt = (left: number) => void;
 
 export interface SiGanttProps {
   data: RowData[];
@@ -102,7 +85,7 @@ export interface SiGanttProps {
   levelColor?: Array<string>;
   showToday?: boolean;
   showWeekend?: boolean;
-  moveSlider?: MoveSlider;
+  moveSlider?: IMoveSlider;
   rowClick?: (rowData: RowData) => void;
   rowDBClick?: (rowData: RowData) => void;
 }
@@ -136,7 +119,7 @@ SiGantt.defaultProps = {
   rowKey: "id",
   expandAll: true,
   headerHeight: 60,
-  rowHeight: 16,
+  rowHeight: 32,
   ganttColumnWidth: 32,
   levelColor: [],
   showToday: true,
