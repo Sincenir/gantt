@@ -1,0 +1,22 @@
+.gantt-header-months {
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+}
+
+.gantt-header-days {
+  display: flex;
+  flex-direction: row;
+  height: 50%;
+}
+
+.gantt-header-day {
+  position: relative;
+}
+
+.gantt-header-month {
+  position: absolute;
+  bottom: 4px;
+  left: 10px;
+  white-space: nowrap;
+}
