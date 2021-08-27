@@ -35,7 +35,6 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
     setDateList(getDateList(projectStart, projectEnd));
   }, [projectStart, projectEnd]);
 
-  console.log(dateList);
   return (
     <div style={ganttStyle}>
       <GanttHeader

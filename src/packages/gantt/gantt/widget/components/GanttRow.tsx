@@ -1,27 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getDateInterval } from "../../../../util/date";
-import { RowData } from "../../../root";
+import { IMoveGantt, RowData } from "../../../root";
 
 const GanttRow: React.FC<GanttRowProps> = (props) => {
-  const { rowHeight, ganttColumnWidth, rowData, projectStart } = props;
+  const {
+    rowHeight,
+    ganttColumnWidth,
+    rowData,
+    projectStart,
+    moveSlider,
+    index,
+  } = props;
 
   const [left, setLeft] = useState(
     (getDateInterval(projectStart, rowData.startDate as Date) / 86400000) *
       ganttColumnWidth
   );
 
-  const handleMove = (e: any) => {
+  const [width, setWidth] = useState(
+    (getDateInterval(rowData.startDate as Date, rowData.endDate as Date) /
+      86400000 +
+      1) *
+      ganttColumnWidth
+  );
+
+  useEffect(() => {
+    setLeft(
+      (getDateInterval(projectStart, rowData.startDate as Date) / 86400000) *
+        ganttColumnWidth
+    );
+    setWidth(
+      (getDateInterval(rowData.startDate as Date, rowData.endDate as Date) /
+        86400000 +
+        1) *
+        ganttColumnWidth
+    );
+  }, [rowData.startDate, rowData.endDate,projectStart, ganttColumnWidth]);
+
+  const handleMove = (e: any, flag: string) => {
+    e.stopPropagation();
     const srcX = e.pageX;
     document.onmousemove = (e: any) => {
       const targetX = e.pageX;
-      setLeft(left + (targetX - srcX))
-      console.log(targetX, srcX);
+      if (flag === "start") {
+        setWidth(width - (targetX - srcX));
+        setLeft(left + (targetX - srcX));
+      } else if (flag === "move") {
+        setLeft(left + (targetX - srcX));
+      } else if (flag === "end") {
+        setWidth(width + (targetX - srcX));
+      }
 
       document.onmouseup = () => {
+        const days = (targetX - srcX) / ganttColumnWidth;
+        let [a, b] = days.toString().split(".");
+        let integer = Number(a);
+        let decimal = Number(`0.${b}`);
+        if (decimal >= 0.5) {
+          days > 0 ? (integer += 1) : (integer -= 1);
+        }
+
+        moveSlider(index, flag, integer);
         document.onmousemove = document.onmouseup = null;
       };
     };
   };
+
   return (
     <div
       style={{
@@ -36,25 +80,49 @@ const GanttRow: React.FC<GanttRowProps> = (props) => {
           height: `${rowHeight - 10}px`,
           margin: "5px 0",
           marginLeft: `${left}px`,
-          width: `${
-            (getDateInterval(
-              rowData.startDate as Date,
-              rowData.endDate as Date
-            ) /
-              86400000 +
-              1) *
-            ganttColumnWidth
-          }px`,
+          width: `${width}px`,
           backgroundColor: "#93B5C6",
           borderRadius: "4px",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
         }}
-        onMouseDown={handleMove}
-      ></div>
+        onMouseDown={(e) => {
+          handleMove(e, "move");
+        }}
+      >
+        <div
+          style={{
+            width: "8px",
+            height: "100%",
+            backgroundColor: "red",
+            borderTopLeftRadius: "4px",
+            borderBottomLeftRadius: "4px",
+          }}
+          onMouseDown={(e) => {
+            handleMove(e, "start");
+          }}
+        ></div>
+        <div
+          style={{
+            width: "8px",
+            height: "100%",
+            backgroundColor: "red",
+            borderTopRightRadius: "4px",
+            borderBottomRightRadius: "4px",
+          }}
+          onMouseDown={(e) => {
+            handleMove(e, "end");
+          }}
+        ></div>
+      </div>
     </div>
   );
 };
 
 interface GanttRowProps {
+  index: number;
+  moveSlider: IMoveGantt;
   ganttColumnWidth: number;
   rowHeight: number;
   projectStart: Date;

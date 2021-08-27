@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import STable from "./table";
 import SGantt from "./gantt";
 import { getMax, getMin } from "../util";
+import { dateCalculate } from "../util/date";
 
 const ganttStyle: CSSProperties = {
   width: "100%",
@@ -22,7 +23,7 @@ const getEnd = (items: Array<any>, k: string) => {
 const SiGantt: React.FC<SiGanttProps> = (props) => {
   const [projectStart, setProjectStart] = useState<Date>(new Date());
   const [projectEnd, setProjectEnd] = useState<Date>(new Date());
-  const [data, setData] = useState([...props.data])
+  const [data, setData] = useState([...props.data]);
 
   useEffect(() => {
     const startTime = getStart(props.data, props.startDateKey as string);
@@ -35,12 +36,21 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
     }
   }, [props.data, props.startDateKey, props.endDateKey]);
 
-  const moveGantt = (left: number) => {
-
-  }
-
-  // console.log(`${projectStart?.getFullYear()}-${projectStart?.getMonth()}-${projectStart?.getDate()}`);
-  // console.log(`${projectEnd?.getFullYear()}-${projectEnd?.getMonth()}-${projectEnd?.getDate()}`);
+  const moveGantt: IMoveGantt = (i, flag, days) => {
+    let tmp = [...data];
+    if (flag === "start") {
+      tmp[i].startDate = dateCalculate(tmp[i].startDate as any, days);
+    } else if (flag === "move") {
+      tmp[i].startDate = dateCalculate(tmp[i].startDate as any, days);
+      tmp[i].endDate = dateCalculate(tmp[i].endDate as any, days);
+    } else if (flag === "end") {
+      tmp[i].endDate = dateCalculate(tmp[i].endDate as any, days);
+    }
+    // tmp[i].startDate = dateCalculate(tmp[i].startDate as any, days)
+    // tmp[i].endDate = dateCalculate(tmp[i].endDate as any, days)
+    setData([...tmp]);
+    console.log(tmp[i].startDate);
+  };
 
   return (
     <div style={ganttStyle}>
@@ -70,7 +80,7 @@ export interface RowData {
 }
 
 export type IMoveSlider = (oldData: RowData, newData: RowData) => void;
-export type IMoveGantt = (left: number) => void;
+export type IMoveGantt = (index: number, flag: string, days: number) => void;
 
 export interface SiGanttProps {
   data: RowData[];

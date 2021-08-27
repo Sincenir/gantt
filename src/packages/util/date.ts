@@ -115,3 +115,9 @@ export function checkDate(date: any) {
    const tmp = createDate(endDate).getTime() - createDate(startDate).getTime()
   return Number(tmp)
 }
+
+export function dateCalculate(date: string | number | Date, days: number) {
+  date = createDate(date)
+  console.log(days)
+  return new Date(date.getTime() + (days * 86400000))
+}

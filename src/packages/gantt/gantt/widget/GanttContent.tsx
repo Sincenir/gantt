@@ -12,8 +12,9 @@ const GanttContent: React.FC<GanttContentProps> = (props) => {
     ganttColumnWidth,
     projectStart,
     projectEnd,
+    moveSlider
   } = props;
-  console.log(data);
+
   return (
     <div style={{ width: "100%", flexGrow: 1, overflow: "auto" }}>
       <div
@@ -22,15 +23,17 @@ const GanttContent: React.FC<GanttContentProps> = (props) => {
           width: `${ganttColumnWidth * dateList.length}px`,
         }}
       >
-        {data.map((v) => {
+        {data.map((v, i) => {
           return (
             <GanttRow
               key={v[rowKey]}
               rowData={v}
+              index={i}
               rowHeight={rowHeight}
               ganttColumnWidth={ganttColumnWidth}
               projectStart={projectStart}
               projectEnd={projectEnd}
+              moveSlider={moveSlider}
             ></GanttRow>
           );
         })}
