@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { IMoveGantt, RowData } from "../../root";
 import PropTypes from "prop-types";
 import GanttRow from "./components/GanttRow";
 
 const GanttContent: React.FC<GanttContentProps> = (props) => {
+  const el = useRef<HTMLDivElement>(null);
   const {
     data,
     rowKey,
@@ -12,11 +13,21 @@ const GanttContent: React.FC<GanttContentProps> = (props) => {
     ganttColumnWidth,
     projectStart,
     projectEnd,
-    moveSlider
+    moveSlider,
+    handleChangeLeft,
   } = props;
 
+  const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    // console.log(el.current?.scrollLeft);
+    handleChangeLeft(el.current?.scrollLeft ?? 0);
+  };
+
   return (
-    <div style={{ width: "100%", flexGrow: 1, overflow: "auto" }}>
+    <div
+      ref={el}
+      style={{ width: "100%", flexGrow: 1, overflow: "auto" }}
+      onScroll={(e) => handleScroll(e)}
+    >
       <div
         style={{
           height: `${rowHeight * data.length}px`,
@@ -53,6 +64,7 @@ interface GanttContentProps {
   ganttColumnWidth: number;
   projectStart: Date;
   projectEnd: Date;
+  handleChangeLeft: (v: number) => void;
 }
 
 GanttContent.propTypes = {

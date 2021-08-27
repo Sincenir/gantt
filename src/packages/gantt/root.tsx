@@ -1,6 +1,6 @@
 import React, { useState, useEffect, CSSProperties } from "react";
 import PropTypes from "prop-types";
-import STable from "./table";
+// import STable from "./table";
 import SGantt from "./gantt";
 import { getMax, getMin } from "../util";
 import { dateCalculate } from "../util/date";
@@ -54,7 +54,7 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
 
   return (
     <div style={ganttStyle}>
-      <STable></STable>
+      {/* <STable></STable> */}
       <SGantt
         projectStart={projectStart}
         projectEnd={projectEnd}

@@ -30,6 +30,7 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
   } = props;
 
   const [dateList, setDateList] = useState<Array<string>>([]);
+  const [conatinerLeft, setConatinerLeft] = useState(0);
 
   useEffect(() => {
     setDateList(getDateList(projectStart, projectEnd));
@@ -41,6 +42,7 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
         dateList={dateList}
         ganttColumnWidth={ganttColumnWidth}
         headerHeight={headerHeight}
+        conatinerLeft={conatinerLeft}
       ></GanttHeader>
       <GanttContent
         data={data}
@@ -53,6 +55,7 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
         endDateKey={endDateKey}
         rowHeight={rowHeight}
         moveSlider={moveSlider}
+        handleChangeLeft={(v: number) => {setConatinerLeft(v)}}
       ></GanttContent>
     </div>
   );
