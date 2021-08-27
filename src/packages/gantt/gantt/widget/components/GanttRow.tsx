@@ -24,6 +24,8 @@ const GanttRow: React.FC<GanttRowProps> = (props) => {
       ganttColumnWidth
   );
 
+  const [hoverSlider, setHoverSlider] = useState(false);
+
   useEffect(() => {
     setLeft(
       (getDateInterval(projectStart, rowData.startDate as Date) / 86400000) *
@@ -35,7 +37,7 @@ const GanttRow: React.FC<GanttRowProps> = (props) => {
         1) *
         ganttColumnWidth
     );
-  }, [rowData.startDate, rowData.endDate,projectStart, ganttColumnWidth]);
+  }, [rowData.startDate, rowData.endDate, projectStart, ganttColumnWidth]);
 
   const handleMove = (e: any, flag: string) => {
     e.stopPropagation();
@@ -90,14 +92,18 @@ const GanttRow: React.FC<GanttRowProps> = (props) => {
         onMouseDown={(e) => {
           handleMove(e, "move");
         }}
+        onMouseEnter={() => setHoverSlider(true)}
+        onMouseLeave={() => setHoverSlider(false)}
       >
         <div
           style={{
             width: "8px",
             height: "100%",
-            backgroundColor: "red",
+            opacity: hoverSlider ? 1 : 0,
+            backgroundColor: "#C9CCD5",
             borderTopLeftRadius: "4px",
             borderBottomLeftRadius: "4px",
+            transition: 'all .3s'
           }}
           onMouseDown={(e) => {
             handleMove(e, "start");
@@ -107,9 +113,11 @@ const GanttRow: React.FC<GanttRowProps> = (props) => {
           style={{
             width: "8px",
             height: "100%",
-            backgroundColor: "red",
+            opacity: hoverSlider ? 1 : 0,
+            backgroundColor: "#C9CCD5",
             borderTopRightRadius: "4px",
             borderBottomRightRadius: "4px",
+            transition: 'all .3s'
           }}
           onMouseDown={(e) => {
             handleMove(e, "end");
