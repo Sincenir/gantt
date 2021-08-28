@@ -44,17 +44,24 @@ const GanttRow: React.FC<GanttRowProps> = (props) => {
     const srcX = e.pageX;
     document.onmousemove = (e: any) => {
       const targetX = e.pageX;
-      if (flag === "start") {
-        setWidth(width - (targetX - srcX));
-        setLeft(left + (targetX - srcX));
-      } else if (flag === "move") {
-        setLeft(left + (targetX - srcX));
-      } else if (flag === "end") {
-        setWidth(width + (targetX - srcX));
-      }
+      let tmpMove = targetX - srcX;
 
+      if (flag === "start") {
+        if (width - tmpMove < ganttColumnWidth) {
+          tmpMove = width - ganttColumnWidth
+        }
+        setWidth(width - tmpMove);
+        setLeft(left + tmpMove);
+      } else if (flag === "move") {
+        setLeft(left + tmpMove);
+      } else if (flag === "end") {
+        if (width + tmpMove < ganttColumnWidth) {
+          tmpMove = -(width - ganttColumnWidth)
+        }
+        setWidth(width + tmpMove);
+      }
       document.onmouseup = () => {
-        const days = (targetX - srcX) / ganttColumnWidth;
+        const days = tmpMove / ganttColumnWidth;
         let [a, b] = days.toString().split(".");
         let integer = Number(a);
         let decimal = Number(`0.${b}`);
@@ -103,7 +110,7 @@ const GanttRow: React.FC<GanttRowProps> = (props) => {
             backgroundColor: "#C9CCD5",
             borderTopLeftRadius: "4px",
             borderBottomLeftRadius: "4px",
-            transition: 'all .3s'
+            transition: "all .3s",
           }}
           onMouseDown={(e) => {
             handleMove(e, "start");
@@ -117,7 +124,7 @@ const GanttRow: React.FC<GanttRowProps> = (props) => {
             backgroundColor: "#C9CCD5",
             borderTopRightRadius: "4px",
             borderBottomRightRadius: "4px",
-            transition: 'all .3s'
+            transition: "all .3s",
           }}
           onMouseDown={(e) => {
             handleMove(e, "end");
