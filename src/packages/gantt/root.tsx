@@ -24,6 +24,7 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
   const [projectStart, setProjectStart] = useState<Date>(new Date());
   const [projectEnd, setProjectEnd] = useState<Date>(new Date());
   const [data, setData] = useState([...props.data]);
+  const [dateState, setDateState] = useState(0);
 
   useEffect(() => {
     const startTime = getStart(props.data, props.startDateKey as string);
@@ -34,7 +35,7 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
     } else {
       setProjectEnd(new Date(endTime));
     }
-  }, [props.data, props.startDateKey, props.endDateKey]);
+  }, [props.data, props.startDateKey, props.endDateKey, dateState]);
 
   const moveGantt: IMoveGantt = (i, flag, days) => {
     let tmp = [...data];
@@ -46,10 +47,8 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
     } else if (flag === "end") {
       tmp[i].endDate = dateCalculate(tmp[i].endDate as any, days);
     }
-    // tmp[i].startDate = dateCalculate(tmp[i].startDate as any, days)
-    // tmp[i].endDate = dateCalculate(tmp[i].endDate as any, days)
     setData([...tmp]);
-    console.log(tmp[i].startDate);
+    setDateState(dateState + 1)
   };
 
   return (
