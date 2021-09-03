@@ -1,6 +1,6 @@
 import React, { useState, useEffect, CSSProperties } from "react";
 import PropTypes from "prop-types";
-// import STable from "./table";
+import STable from "./table";
 import SGantt from "./gantt";
 import { getMax, getMin } from "../util";
 import { dateCalculate } from "../util/date";
@@ -53,7 +53,13 @@ const SiGantt: React.FC<SiGanttProps> = (props) => {
 
   return (
     <div style={ganttStyle}>
-      {/* <STable></STable> */}
+      <STable
+        data={data}
+        rowHeight={Number(props.rowHeight)}
+        headerHeight={Number(props.headerHeight)}
+        rowKey={props.rowKey}
+        tableColumn={props.tableColumn as Array<ITableColumn>}
+      ></STable>
       <SGantt
         projectStart={projectStart}
         projectEnd={projectEnd}
@@ -78,6 +84,12 @@ export interface RowData {
   [k: string]: any;
 }
 
+export interface ITableColumn {
+  title: string;
+  key: string;
+  width: number;
+}
+
 export type IMoveSlider = (oldData: RowData, newData: RowData) => void;
 export type IMoveGantt = (index: number, flag: string, days: number) => void;
 
@@ -87,6 +99,7 @@ export interface SiGanttProps {
   endDateKey?: string;
   rowKey: string;
   expandAll?: boolean;
+  tableColumn?: Array<ITableColumn>;
 
   headerHeight?: string | number;
   rowHeight?: string | number;
@@ -106,6 +119,7 @@ SiGantt.propTypes = {
   endDateKey: PropTypes.string,
   rowKey: PropTypes.string.isRequired,
   expandAll: PropTypes.bool,
+  tableColumn: PropTypes.any,
 
   // style
   headerHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

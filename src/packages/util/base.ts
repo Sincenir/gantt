@@ -13,4 +13,4 @@ export const isNumber = getType("Number");
 export const isSymbol = getType("Symbol");
 export const isNull = getType("Null");
 export const isDate = getType("Date");
-export const isFunction = getType("Function");
+export const isFunction = getType("Function")

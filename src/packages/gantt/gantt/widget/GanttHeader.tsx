@@ -6,7 +6,6 @@ const ganttHeaderStype: CSSProperties = {
   fontSize: "12px",
   border: "1px solid #eee",
   position: "relative",
-  overflow: "hidden"
 };
 
 const GanttHeader: React.FC<GanttHeaderProps> = (props) => {

@@ -79,15 +79,16 @@ const GanttRow: React.FC<GanttRowProps> = (props) => {
     <div
       style={{
         borderBottom: "1px solid #F9F9F9",
-        height: `${rowHeight - 1}px`,
+        height: `${rowHeight - 6}px`,
         backgroundSize: `${ganttColumnWidth}px`,
         backgroundImage: `linear-gradient(270deg,#F9F9F9 1px,transparent 0)`,
+        paddingTop: '5px'
       }}
     >
       <div
         style={{
           height: `${rowHeight - 10}px`,
-          margin: "5px 0",
+          // margin: "5px 0",
           marginLeft: `${left}px`,
           width: `${width}px`,
           backgroundColor: "#93B5C6",

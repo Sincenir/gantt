@@ -18,7 +18,6 @@ const GanttContent: React.FC<GanttContentProps> = (props) => {
   } = props;
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
-    // console.log(el.current?.scrollLeft);
     handleChangeLeft(el.current?.scrollLeft ?? 0);
   };
 

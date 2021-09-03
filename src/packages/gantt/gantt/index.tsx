@@ -13,6 +13,7 @@ const ganttStyle: CSSProperties = {
   display: "flex",
   flexDirection: "column",
   overflow: "hidden",
+  position: 'relative'
 };
 
 const SiGantt: React.FC<SiGanttProps> = (props) => {

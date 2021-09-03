@@ -1,0 +1,6 @@
+.table-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #eee;
+}
