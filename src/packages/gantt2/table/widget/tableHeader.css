@@ -1,0 +1,14 @@
+.table-header--container {
+  flex-grow: 0;
+  font-size: 16px;
+  font-weight: 700;
+  border-top: 1px solid #eee;
+  border-left: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+  background-color: #fff;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}

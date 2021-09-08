@@ -1,0 +1,13 @@
+.table-content--container {
+  background-color: #fff;
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.table-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #eee;
+}

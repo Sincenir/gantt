@@ -11,7 +11,7 @@ const SiGanttHeader: React.FC = () => {
     >
       <div
         className="gantt-header-days"
-        style={{ left: `${0}px`, position: "absolute" }}
+        style={{ left: `${-state.scrollLeft}px`, position: "absolute" }}
       >
         {(state.dateList!).map((v, i) => (
           <div

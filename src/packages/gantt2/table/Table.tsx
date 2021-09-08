@@ -1,17 +1,14 @@
-import React, { CSSProperties } from 'react'
+import React from 'react'
+import './table.css'
+import SiTableHeader from './widget/TableHeader'
+import SiTableContent from './widget/TableContent'
 
-
-
-const SiTableStyle: CSSProperties = {
-  width: '500px',
-  flexGrow: 0,
-  display: 'flex',
-  flexDirection: 'column'
-}
 
 const SiTable: React.FC = () => {
   return (
-    <div style={SiTableStyle}>
+    <div className='table--container'>
+      <SiTableHeader></SiTableHeader>
+      <SiTableContent></SiTableContent>
     </div>
   )
 }

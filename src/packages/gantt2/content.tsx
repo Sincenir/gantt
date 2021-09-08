@@ -17,7 +17,20 @@ const initialState: IInitialState = {
   projectStart: new Date(),
   projectEnd: new Date(),
   dateList: [],
-  tableColumn: [],
+  tableColumn: [
+    {
+      title: "工作",
+      key: "name",
+      width: 100,
+    },
+    {
+      title: "标签",
+      key: "label",
+      width: 100,
+    },
+  ],
+  scrollTop: 0,
+  scrollLeft: 0
 };
 
 const GanttContext = createContext<{
@@ -29,7 +42,6 @@ const GanttContext = createContext<{
 });
 
 const ganttReducer = (state: IInitialState, action: GanttAction) => {
-  console.log(action);
   const {
     data,
     startKey,
@@ -74,6 +86,15 @@ const ganttReducer = (state: IInitialState, action: GanttAction) => {
         projectStart: start,
         projectEnd: end,
       };
+    }
+
+    case GanttDispatchTypes.ChangeScrollPosition: {
+      const { left, top } = action.payload;
+      return {
+        ...state,
+        scrollTop: top,
+        scrollLeft: left
+      }
     }
   }
   return state;
