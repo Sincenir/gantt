@@ -1,19 +1,20 @@
 import "./App.css";
 import React, { useState } from "react";
 // import { CompA, CompB } from './packages/index'
-import SiGantt, { RowData, ITableColumn } from "./packages/gantt/root";
+// import SiGantt, { RowData, ITableColumn } from "./packages/gantt/root";
+import SiGantt from "./packages/gantt2/root";
 
 const App: React.FC = () => {
   const [rowHeight, setRowHeight] = useState(32);
   const [colWidth, setColWidth] = useState(32);
-  const tmp: RowData = {
+  const tmp = {
     id: 1,
     startDate: new Date(),
     endDate: new Date(),
     children: [],
   };
 
-  const data: RowData[] = [];
+  const data = [];
   for (let index = 0; index < 100; index++) {
     if (index % 2 === 0) {
       data.push({
@@ -34,7 +35,7 @@ const App: React.FC = () => {
     }
   }
 
-  const colShowData: ITableColumn[] = [
+  const colShowData = [
     {
       title: '工作',
       key: 'name',
@@ -56,7 +57,8 @@ const App: React.FC = () => {
         <button onClick={() => {setColWidth(w => ( w += 2))}}>列宽++</button>
         <button onClick={() => {setColWidth(w => ( w -= 2))}}>列宽--</button>
       </div>
-      <SiGantt rowHeight={rowHeight} tableColumn={colShowData} ganttColumnWidth={colWidth} data={data} rowKey="id"></SiGantt>
+      {/* <SiGantt rowHeight={rowHeight} tableColumn={colShowData} ganttColumnWidth={colWidth} data={data} rowKey="id"></SiGantt> */}
+      <SiGantt rowHeight={rowHeight} tableColumn={colShowData} colWidth={colWidth} data={data} rowKey="id"></SiGantt>
     </div>
   );
 }

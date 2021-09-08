@@ -1,0 +1,9 @@
+.gantt--content__container {
+  width: 100%;
+  flex-grow: 1;
+  overflow: auto;
+}
+/* 
+.gatnt--content__content {
+
+} */
