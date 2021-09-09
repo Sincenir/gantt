@@ -30,7 +30,7 @@ const initialState: IInitialState = {
     },
   ],
   scrollTop: 0,
-  scrollLeft: 0
+  scrollLeft: 0,
 };
 
 const GanttContext = createContext<{
@@ -42,29 +42,21 @@ const GanttContext = createContext<{
 });
 
 const ganttReducer = (state: IInitialState, action: GanttAction) => {
-  const {
-    data,
-    startKey,
-    endKey,
-    expandAll,
-    headerHeight,
-    rowHeight,
-    colWidth,
-    levelColor,
-    showToday,
-    showWeekend,
-  } = state;
-
   switch (action.type) {
     case GanttDispatchTypes.initData: {
+      const { data, startKey, endKey, rowKey } = action.payload;
       return {
         ...state,
-        data: [...action.payload.initData],
+        data: data ? data : state.data,
+        startKey: startKey ? startKey : state.startKey,
+        endKey: endKey ? endKey : state.endKey,
+        rowKey: rowKey ? rowKey : state.rowKey,
       };
     }
     case GanttDispatchTypes.MoveSlider: {
+      const { startKey, endKey } = state;
       const { index, flag, days } = action.payload;
-      let tmp = [...data];
+      let tmp = [...state.data];
       if (flag === "start") {
         tmp[index][startKey] = dateCalculate(tmp[index][startKey] as any, days);
       } else if (flag === "move") {
@@ -93,8 +85,28 @@ const ganttReducer = (state: IInitialState, action: GanttAction) => {
       return {
         ...state,
         scrollTop: top,
-        scrollLeft: left
-      }
+        scrollLeft: left,
+      };
+    }
+
+    case GanttDispatchTypes.ChangeStyle: {
+      const {
+        headerHeight,
+        rowHeight,
+        colWidth,
+        levelColor,
+        showToday,
+        showWeekend,
+      } = action.payload;
+      return {
+        ...state,
+        headerHeight: headerHeight ? headerHeight : state.headerHeight,
+        rowHeight: rowHeight ? rowHeight : state.rowHeight,
+        colWidth: colWidth ? colWidth : state.colWidth,
+        levelColor: levelColor ? levelColor : state.levelColor,
+        showToday: showToday ? showToday : state.showToday,
+        showWeekend: showWeekend ? showWeekend : state.showWeekend,
+      };
     }
   }
   return state;

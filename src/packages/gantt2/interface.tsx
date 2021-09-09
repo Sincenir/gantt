@@ -43,10 +43,16 @@ export enum GanttDispatchTypes {
   ChangeExpandAll = "CHANGE_EXPAND_ALL",
   ChangeProjectDate = "CHANGE_PROJECT_DATE",
   ChangeScrollPosition = "CHANGE_SCOLL_POSITION",
+  ChangeStyle = "CHANGE_STYLE",
 }
 
 export type GanttProductPayload = {
-  [GanttDispatchTypes.initData]: { initData: Array<any> };
+  [GanttDispatchTypes.initData]: {
+    data?: Array<any>;
+    startKey?: string;
+    endKey?: string;
+    rowKey?: string;
+  };
   [GanttDispatchTypes.initStyle]: {
     headerHeight: number;
     rowHeight: number;
@@ -60,6 +66,14 @@ export type GanttProductPayload = {
   [GanttDispatchTypes.ChangeExpandAll]: { v: boolean };
   [GanttDispatchTypes.ChangeProjectDate]: { start: Date; end: Date };
   [GanttDispatchTypes.ChangeScrollPosition]: { left: number; top: number };
+  [GanttDispatchTypes.ChangeStyle]: {
+    headerHeight?: number;
+    rowHeight?: number;
+    colWidth?: number;
+    levelColor?: Array<string>;
+    showToday?: boolean;
+    showWeekend?: boolean;
+  };
 };
 
 export type GanttAction =

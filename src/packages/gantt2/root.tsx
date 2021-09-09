@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-// import  from "../gantt/gantt/widget/GanttContent";
+import PropTypes from "prop-types";
 import { GanttProvider, GanttContext } from "./content";
 import { GanttDispatchTypes } from "./interface";
 import "./root.css";
@@ -18,24 +18,51 @@ const SiGanttContainer: React.FC<GanttProps> = (props) => {
   const { state, dispatch } = useContext(GanttContext);
   const {
     data,
-    // startKey,
-    // endKey,
-    // rowKey,
+    startKey,
+    endKey,
+    rowKey,
     // expandAll,
-    // headerHeight,
-    // rowHeight,
-    // colWidth,
-    // levelColor,
-    // showToday,
-    // showWeekend,
+    headerHeight,
+    rowHeight,
+    colWidth,
+    levelColor,
+    showToday,
+    showWeekend,
   } = props;
 
   useEffect(() => {
     dispatch({
       type: GanttDispatchTypes.initData,
-      payload: { initData: data },
+      payload: {
+        data: data,
+        startKey: startKey,
+        endKey: endKey,
+        rowKey: rowKey,
+      },
     });
-  }, [data, dispatch]);
+  }, [data, startKey, endKey, rowKey, dispatch]);
+
+  useEffect(() => {
+    dispatch({
+      type: GanttDispatchTypes.ChangeStyle,
+      payload: {
+        headerHeight,
+        rowHeight,
+        colWidth,
+        levelColor,
+        showToday,
+        showWeekend,
+      },
+    });
+  }, [
+    headerHeight,
+    rowHeight,
+    colWidth,
+    levelColor,
+    showToday,
+    showWeekend,
+    dispatch,
+  ]);
 
   useEffect(() => {
     const startTime = getStart(state.data, state.startKey as string);
@@ -68,7 +95,6 @@ const SiGanttRoot: React.FC<GanttProps> = (props) => {
   );
 };
 
-
 export interface GanttProps {
   data: Array<any>;
   startKey?: string;
@@ -88,5 +114,41 @@ export interface GanttProps {
   rowClick?: (v: any) => {};
   rowDBClick?: (v: any) => {};
 }
+
+SiGanttRoot.propTypes = SiGanttContainer.propTypes = {
+  data: PropTypes.any,
+  startKey: PropTypes.any,
+  endKey: PropTypes.any,
+  rowKey: PropTypes.any,
+  expandAll: PropTypes.any,
+  tableColumn: PropTypes.any,
+  headerHeight: PropTypes.any,
+  rowHeight: PropTypes.any,
+  colWidth: PropTypes.any,
+  levelColor: PropTypes.any,
+  showToday: PropTypes.any,
+  showWeekend: PropTypes.any,
+  moveSlider: PropTypes.any,
+  rowClick: PropTypes.any,
+  rowDBClick: PropTypes.any,
+};
+
+SiGanttContainer.defaultProps = {
+  data: [],
+  startKey: "startDate",
+  endKey: "endDate",
+  rowKey: "id",
+  expandAll: true,
+  tableColumn: [],
+  headerHeight: 60,
+  rowHeight: 32,
+  colWidth: 32,
+  levelColor: [],
+  showToday: true,
+  showWeekend: true,
+  moveSlider: void 0,
+  rowClick: void 0,
+  rowDBClick: void 0,
+};
 
 export default SiGanttRoot;
