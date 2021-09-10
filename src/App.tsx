@@ -22,8 +22,8 @@ const App: React.FC = () => {
         id: index,
         name: `姓名${index}`,
         label: `标签${index}`,
-        startDate: new Date((new Date().getTime() + (86400000 * -3))),
-        endDate: new Date((new Date().getTime() + (86400000 * -5)))
+        startDate: new Date((new Date().getTime() + (86400000 * -5))),
+        endDate: new Date((new Date().getTime() + (86400000 * -3)))
       })
     } else {
       data.push({
