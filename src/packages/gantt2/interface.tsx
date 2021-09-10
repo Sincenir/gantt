@@ -17,6 +17,7 @@ export interface IInitialState {
   colWidth: number;
   levelColor: Array<string>;
   showToday: boolean;
+  todayLeft: number;
   showWeekend: boolean;
 
   moveSlider?: (v: any) => {};

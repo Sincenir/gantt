@@ -3,6 +3,14 @@
   flex-grow: 1;
   overflow: auto;
 }
+
+.gantt-content--today {
+  position: absolute;
+  opacity: .3;
+  top: 0px;
+  height: 100%;
+  background-color: lightblue;
+}
 /* 
 .gatnt--content__content {
 

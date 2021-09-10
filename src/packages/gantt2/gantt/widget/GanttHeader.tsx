@@ -13,7 +13,7 @@ const SiGanttHeader: React.FC = () => {
         className="gantt-header-days"
         style={{ left: `${-state.scrollLeft}px`, position: "absolute" }}
       >
-        {(state.dateList!).map((v, i) => (
+        {state.dateList!.map((v, i) => (
           <div
             key={v}
             className="gantt-header-day"
@@ -30,6 +30,10 @@ const SiGanttHeader: React.FC = () => {
             )}
           </div>
         ))}
+        <div
+          className="gantt--header--today__arrow"
+          style={{ left: `${state.todayLeft + state.colWidth / 2 - 7.5}px` }}
+        ></div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import { GanttAction, GanttDispatchTypes, IInitialState } from "./interface";
-import { dateCalculate, getDateList } from "../util/date";
+import { dateCalculate, getDateInterval, getDateList } from "../util/date";
 
 const initialState: IInitialState = {
   data: [],
@@ -17,6 +17,7 @@ const initialState: IInitialState = {
   projectStart: new Date(),
   projectEnd: new Date(),
   dateList: [],
+  todayLeft: 0,
   tableColumn: [
     {
       title: "工作",
@@ -72,9 +73,11 @@ const ganttReducer = (state: IInitialState, action: GanttAction) => {
     }
     case GanttDispatchTypes.ChangeProjectDate: {
       const { start, end } = action.payload;
+      const days = Math.round(getDateInterval(start, new Date()) / 86400000);
       return {
         ...state,
         dateList: getDateList(start, end),
+        todayLeft: days * state.colWidth,
         projectStart: start,
         projectEnd: end,
       };

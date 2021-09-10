@@ -27,3 +27,40 @@
   border: 1px solid #eee;
   position: relative;
 }
+
+
+.gantt--header--today__arrow {
+  position: absolute;
+  top: 20px;
+  opacity: 0.5;
+  border-radius: 2px;
+  border-style: solid;
+  border-width: 7.5px;
+  border-color: transparent;
+  border-top-color: lightblue;
+  animation: today-arrow .8s infinite;
+  -webkit-animation: today-arrow 0.8s infinite;
+  z-index: 5;
+}
+
+/* 让上面的箭头动起来 */
+@keyframes today-arrow {
+  0% {
+    top: 20px
+  }
+
+  /* 从20%的地方才开始变形 */
+  20% {
+    /* border-radius: 2px */
+  }
+
+  50% {
+    top: 15px
+  }
+
+  /* 到80%的地方恢复原状 */
+  80% {
+    /* border-radius: 2px 100%; */
+    top: 20px
+  }
+}

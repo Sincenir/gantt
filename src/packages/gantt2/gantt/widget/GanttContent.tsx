@@ -28,11 +28,16 @@ const SiGanttContent: React.FC = () => {
         style={{
           height: `${state.rowHeight! * state.data.length}px`,
           width: `${state.colWidth! * state.dateList.length}px`,
+          position: 'relative'
         }}
       >
         {state.data.map((v, i) => {
           return <SiGanttRow key={v[state.rowKey!]} index={i} rowData={v} />;
         })}
+        <div
+          className="gantt-content--today"
+          style={{ left: `${state.todayLeft}px`, width: `${state.colWidth}px` }}
+        ></div>
       </div>
     </div>
   );
