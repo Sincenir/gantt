@@ -10,6 +10,7 @@
   top: 0px;
   height: 100%;
   background-color: lightblue;
+  z-index: 2;
 }
 
 .gantt-content--weekend {
@@ -18,6 +19,7 @@
   top: 0px;
   height: 100%;
   background-color: #d3d3d3;
+  z-index: 1;
 }
 /* 
 .gatnt--content__content {

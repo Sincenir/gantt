@@ -86,11 +86,13 @@ const SiGanttRow: React.FC<{ index: number; rowData: any }> = ({
   return (
     <div
       style={{
+        position: 'relative',
         borderBottom: "1px solid #F9F9F9",
         height: `${state.rowHeight! - 6}px`,
         backgroundSize: `${state.colWidth}px`,
         backgroundImage: `linear-gradient(270deg,#F9F9F9 1px,transparent 0)`,
         paddingTop: "5px",
+        zIndex: 3,
       }}
     >
       <div

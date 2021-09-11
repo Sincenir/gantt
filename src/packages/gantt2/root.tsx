@@ -31,6 +31,7 @@ const SiGanttContainer: React.FC<GanttProps> = (props) => {
   } = props;
 
   useEffect(() => {
+    console.log(111);
     dispatch({
       type: GanttDispatchTypes.initData,
       payload: {

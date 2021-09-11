@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { CompA, CompB } from './packages/index'
 // import SiGantt, { RowData, ITableColumn } from "./packages/gantt/root";
 import SiGantt from "./packages/gantt2/root";
@@ -7,6 +7,7 @@ import SiGantt from "./packages/gantt2/root";
 const App: React.FC = () => {
   const [rowHeight, setRowHeight] = useState(32);
   const [colWidth, setColWidth] = useState(32);
+  const [data, setData] = useState<Array<unknown>>([]);
   const tmp = {
     id: 1,
     startDate: new Date(),
@@ -14,29 +15,32 @@ const App: React.FC = () => {
     children: [],
   };
 
-  const data = [];
-  for (let index = 0; index < 100; index++) {
-    if (index % 2 === 0) {
-      data.push({
-        ...tmp,
-        id: index,
-        name: `姓名${index}`,
-        label: `标签${index}`,
-        startDate: new Date((new Date().getTime() + (86400000 * -5))),
-        endDate: new Date((new Date().getTime() + (86400000 * -3)))
-      })
-    } else {
-      data.push({
-        ...tmp,
-        id: index,
-        name: `姓名${index}`,
-        label: `标签${index}`,
-        startDate: new Date((new Date().getTime() + (86400000 * 5))),
-        endDate: new Date((new Date().getTime() + (86400000 * 10)))
-      })
+  useEffect(() => {
+    const tmpdata = [];
+    for (let index = 0; index < 100; index++) {
+      if (index % 2 === 0) {
+        tmpdata.push({
+          id: index,
+          name: `姓名${index}`,
+          label: `标签${index}`,
+          startDate: new Date((new Date().getTime() + (86400000 * -5))),
+          endDate: new Date((new Date().getTime() + (86400000 * -3)))
+        })
+      } else {
+        tmpdata.push({
+          id: index,
+          name: `姓名${index}`,
+          label: `标签${index}`,
+          startDate: new Date((new Date().getTime() + (86400000 * 5))),
+          endDate: new Date((new Date().getTime() + (86400000 * 10)))
+        })
+      }
     }
-  }
+    setData(tmpdata)
+  
+  }, [])
 
+  
   const colShowData = [
     {
       title: '工作',
