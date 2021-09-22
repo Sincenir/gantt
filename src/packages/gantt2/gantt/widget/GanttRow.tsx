@@ -86,7 +86,7 @@ const SiGanttRow: React.FC<{ index: number; rowData: any }> = ({
   return (
     <div
       style={{
-        position: 'relative',
+        position: "relative",
         borderBottom: "1px solid #F9F9F9",
         height: `${state.rowHeight! - 6}px`,
         backgroundSize: `${state.colWidth}px`,
@@ -95,52 +95,57 @@ const SiGanttRow: React.FC<{ index: number; rowData: any }> = ({
         zIndex: 3,
       }}
     >
-      <div
-        style={{
-          height: `${state.rowHeight! - 10}px`,
-          marginLeft: `${mLeft}px`,
-          width: `${width}px`,
-          backgroundColor: "#93B5C6",
-          borderRadius: "4px",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-        onMouseDown={(e) => {
-          handleMove(e, "move");
-        }}
-        onMouseEnter={() => setIsHover(true)}
-        onMouseLeave={() => setIsHover(false)}
-      >
+      {state.scrollTop / state.rowHeight - 1 < index &&
+      index < state.scrollTop / state.rowHeight + 30 ? (
         <div
           style={{
-            width: `${state.colWidth! / 3}px`,
-            height: "100%",
-            opacity: isHover ? 1 : 0,
-            backgroundColor: "#C9CCD5",
-            borderTopLeftRadius: "4px",
-            borderBottomLeftRadius: "4px",
-            transition: "all .3s",
+            height: `${state.rowHeight! - 10}px`,
+            marginLeft: `${mLeft}px`,
+            width: `${width}px`,
+            backgroundColor: "#93B5C6",
+            borderRadius: "4px",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
           }}
           onMouseDown={(e) => {
-            handleMove(e, "start");
+            handleMove(e, "move");
           }}
-        ></div>
-        <div
-          style={{
-            width: `${state.colWidth! / 3}px`,
-            height: "100%",
-            opacity: isHover ? 1 : 0,
-            backgroundColor: "#C9CCD5",
-            borderTopRightRadius: "4px",
-            borderBottomRightRadius: "4px",
-            transition: "all .3s",
-          }}
-          onMouseDown={(e) => {
-            handleMove(e, "end");
-          }}
-        ></div>
-      </div>
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+        >
+          <div
+            style={{
+              width: `${state.colWidth! / 3}px`,
+              height: "100%",
+              opacity: isHover ? 1 : 0,
+              backgroundColor: "#C9CCD5",
+              borderTopLeftRadius: "4px",
+              borderBottomLeftRadius: "4px",
+              transition: "all .3s",
+            }}
+            onMouseDown={(e) => {
+              handleMove(e, "start");
+            }}
+          ></div>
+          <div
+            style={{
+              width: `${state.colWidth! / 3}px`,
+              height: "100%",
+              opacity: isHover ? 1 : 0,
+              backgroundColor: "#C9CCD5",
+              borderTopRightRadius: "4px",
+              borderBottomRightRadius: "4px",
+              transition: "all .3s",
+            }}
+            onMouseDown={(e) => {
+              handleMove(e, "end");
+            }}
+          ></div>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

@@ -2,6 +2,7 @@
   "name": "si-gantt-react",
   "version": "0.0.1",
   "main": "lib/index.esm.js",
+  "homepage": "./",
   "private": false,
   "dependencies": {
     "@rollup/plugin-json": "^4.1.0",

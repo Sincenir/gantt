@@ -11,7 +11,7 @@ const initialState: IInitialState = {
   headerHeight: 60,
   rowHeight: 32,
   colWidth: 32,
-  levelColor: [],
+  levelColor: ['#93B5C6', '#70B603', '#D9001B'],
   showToday: true,
   showWeekend: true,
   projectStart: new Date(),

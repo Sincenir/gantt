@@ -9,8 +9,9 @@ const SiTableContent: React.FC = () => {
       <div
         style={{
           height: `${state.rowHeight! * state.data.length}px`,
-          position: 'absolute',
-          top: `${-state.scrollTop}px`
+          position: "absolute",
+          width: '100%',
+          top: `${-state.scrollTop}px`,
         }}
       >
         {state.data.map((v, i) => {
@@ -23,13 +24,22 @@ const SiTableContent: React.FC = () => {
                 lineHeight: `${state.rowHeight}px`,
               }}
             >
-              {state.tableColumn.map((col) => {
-                return (
-                  <div key={col.key} style={{ width: `${col.width ?? 50}px` }}>
-                    {v[col.key]}
-                  </div>
-                );
-              })}
+              {state.scrollTop / state.rowHeight - 1 < i &&
+              i < state.scrollTop / state.rowHeight + 30
+                ? state.tableColumn.map((col, ii) => {
+                    return (
+                      <div
+                        key={col.key}
+                        style={{
+                          width: `${col.width ?? 50}px`,
+                          flexGrow: ii === state.tableColumn.length - 1 ? 1 : 0,
+                        }}
+                      >
+                        {v[col.key]}
+                      </div>
+                    );
+                  })
+                : ""}
             </div>
           );
         })}

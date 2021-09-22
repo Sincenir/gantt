@@ -31,7 +31,6 @@ const SiGanttContainer: React.FC<GanttProps> = (props) => {
   } = props;
 
   useEffect(() => {
-    console.log(111);
     dispatch({
       type: GanttDispatchTypes.initData,
       payload: {
@@ -144,7 +143,7 @@ SiGanttContainer.defaultProps = {
   headerHeight: 60,
   rowHeight: 32,
   colWidth: 32,
-  levelColor: [],
+  levelColor: undefined,
   showToday: true,
   showWeekend: true,
   moveSlider: void 0,
